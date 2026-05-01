@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "DocuMark",
-  description: "Upload Word documents and convert them to Markdown through the .NET backend.",
+  description: "Convert DOCX, XLSX, PPTX, and PDF files into AI-friendly Markdown through the .NET backend.",
 };
 
 export default function RootLayout({

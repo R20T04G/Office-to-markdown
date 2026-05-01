@@ -1,14 +1,15 @@
 # DocuMark
 
-**Convert Word documents (.docx) to clean Markdown with a modern web interface.**
+**Convert Office documents and PDFs to clean Markdown with a modern web interface.**
 
-DocuMark is a full-stack application that accepts `.docx` files and extracts their content as formatted Markdown. It combines a **Next.js 16** frontend with a **.NET 8** backend, deployed on **AWS EC2** via **Terraform**.
+DocuMark is a full-stack application that accepts `.docx`, `.xlsx`, `.pptx`, and `.pdf` files and extracts their content as formatted Markdown or AI-friendly summaries. It combines a **Next.js 16** frontend with a **.NET 8** backend, deployed on **AWS EC2** via **Terraform**.
 
 ---
 
 ## Features
 
-- 📄 **Word to Markdown conversion** — Upload `.docx` files and get clean Markdown output
+- 📄 **Office to Markdown conversion** — Upload `.docx`, `.xlsx`, `.pptx`, and `.pdf` files with AI-friendly output
+- 🧾 **Conversion logs** — Every export starts with a structured Markdown log header
 - 🎨 **Modern UI** — Responsive frontend built with Next.js, Tailwind CSS, and TypeScript
 - ⚡ **Fast backend** — .NET 8 Minimal API using OpenXML for efficient document parsing
 - 🐳 **Docker support** — Full containerization for consistent local and production environments
@@ -222,22 +223,22 @@ curl -X POST -F "file=@document.docx" http://localhost:5152/api/convert
 
 ```json
 {
-  "message": "Currently, only .docx files are supported for conversion."
+  "message": "Supported formats are .docx, .xlsx, .pptx, and .pdf."
 }
 ```
 
-**Supported formats:** `.docx` only
+**Supported formats:** `.docx`, `.xlsx`, `.pptx`, `.pdf`
 
 ---
 
 ## Workflow
 
-1. **User uploads a .docx file** via the web interface
+1. **User uploads a .docx, .xlsx, .pptx, or .pdf file** via the web interface
 2. **Frontend posts to `/api/convert`** (Next.js route)
 3. **Next.js proxy forwards** to backend at `http://backend:8080/api/convert`
-4. **.NET backend parses** the document using OpenXML SDK
-5. **Markdown is extracted** and returned as JSON
-6. **Frontend displays** the Markdown in a formatted preview
+4. **.NET backend parses** the document using OpenXML SDK or PdfPig
+5. **Markdown log and extracted content** are returned as JSON
+6. **Frontend displays** the Markdown in a formatted preview and download card
 
 ---
 
@@ -246,8 +247,9 @@ curl -X POST -F "file=@document.docx" http://localhost:5152/api/convert
 | Format | Status | Notes |
 |--------|--------|-------|
 | `.docx` | ✅ Supported | Full support for text extraction |
-| `.xlsx` | ⏳ Planned | Spreadsheet to Markdown tables |
-| `.pdf` | ⏳ Planned | Text & OCR support |
+| `.xlsx` | ✅ Supported | Workbook sheets converted to Markdown tables |
+| `.pptx` | ✅ Supported | Slides converted to AI-friendly outlines |
+| `.pdf` | ✅ Supported | Page text extraction |
 
 ---
 
