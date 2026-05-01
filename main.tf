@@ -24,6 +24,14 @@ resource "aws_security_group" "documark_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Allow SSH to securely log into the server
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Allow the server to download internet updates
   egress {
     from_port   = 0
